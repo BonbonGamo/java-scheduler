@@ -1,3 +1,4 @@
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -6,9 +7,8 @@ public class Reservation implements StoreableObject<ReservationObject> {
 	protected ReservationObject r;
 	
 	public Reservation(HashMap<String,String> o) {
-		System.out.println("start: "+ o.get("start") + o.get("title") + o.get("person") + o.keySet().toString());
 		try {
-			Date start = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss.fffffffff").parse(o.get("start"));
+			Date start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse(o.get("start"));
 			this.r = new ReservationObject(o.get("title"),start, o.get("person"));
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -23,11 +23,22 @@ public class Reservation implements StoreableObject<ReservationObject> {
 		this.r.title = title;
 	}
 	
+	public String getInfo() {
+		if(this.r == null) {
+			return "Nulll";
+		}
+		return "" + this.r.getStart().toString() + " - " + this.r.getName();
+	}
+	
+	public boolean isColliding(Date d) {
+		return this.r.getStart().equals(d);
+	}
+	
 	public CacheObject itemToCacheObject(){
-		System.out.println("PARSE" + r.start);
 		CacheObject hm = new CacheObject();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
 		hm.put("title", r.title);
-		hm.put("start", "" + r.start.toString());
+		hm.put("start", "" + dateFormat.format(r.start));
 		hm.put("person", r.person);
 		hm.put("duration", "" + r.duration);
 		return hm;
@@ -51,6 +62,9 @@ class ReservationObject {
 	}
 	public String getTitle() {
 		return this.title;
+	}
+	public String getName() {
+		return this.person;
 	}
 	public HashMap<String,String> toHashMap() {
 		HashMap<String,String> hm = new HashMap<String,String>();

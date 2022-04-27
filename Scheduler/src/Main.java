@@ -8,12 +8,7 @@ public class Main {
 	@SuppressWarnings("unused")
 	public static void main(String[] args)  {
 		Reservations reservations = new Reservations();
-		if(true) {
-			ReservationView rv = new ReservationView(reservations);
-			rv.open();
-		}else {
-			TerminalControl.start(reservations);
-		}
+		TerminalControl.start(reservations);
 	}
 
 }

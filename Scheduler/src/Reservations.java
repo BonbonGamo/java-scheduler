@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Reservations extends Storage {
 	
@@ -40,5 +41,10 @@ public class Reservations extends Storage {
 		if(this.pendingReservation != null){
 			this.pendingReservation.setTitle(title);
 		}
+	}
+	
+	public boolean hasCollidinSlot(Date slotDate) {
+		List<Reservation> reservations = this.getAllReservations().stream().filter(reservation -> reservation.isColliding(slotDate)).toList();
+		return reservations.size() > 0;
 	}
 }
