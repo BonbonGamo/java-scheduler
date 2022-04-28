@@ -19,10 +19,6 @@ public class Reservation implements StoreableObject<ReservationObject> {
 		this.r = new ReservationObject(title, start, person);
 	}
 	
-	public void setTitle(String title) {
-		this.r.title = title;
-	}
-	
 	public String getInfo() {
 		return "" + this.r.getStart().toString() + " - " + this.r.getName();
 	}
@@ -34,10 +30,8 @@ public class Reservation implements StoreableObject<ReservationObject> {
 	public CacheObject itemToCacheObject(){
 		CacheObject hm = new CacheObject();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
-		hm.put("title", r.title);
 		hm.put("start", "" + dateFormat.format(r.start));
 		hm.put("person", r.person);
-		hm.put("duration", "" + r.duration);
 		return hm;
 	}
 
@@ -45,28 +39,19 @@ public class Reservation implements StoreableObject<ReservationObject> {
 
 class ReservationObject {
 	protected Date start;
-	protected int duration;
-	protected String title;
 	protected String person;
 	public ReservationObject(String title, Date start, String person) {
-		this.title = title;
 		this.start = start;
 		this.person = person;
-		this.duration = 60;
 	}
 	public Date getStart() {
 		return this.start;
-	}
-	public String getTitle() {
-		return this.title;
 	}
 	public String getName() {
 		return this.person;
 	}
 	public HashMap<String,String> toHashMap() {
 		HashMap<String,String> hm = new HashMap<String,String>();
-		hm.put("title", this.title);
-		hm.put("duration", "" + this.duration);
 		hm.put("person", this.person);
 		hm.put("start", "" + this.start);
 		return hm;

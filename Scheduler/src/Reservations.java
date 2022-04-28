@@ -33,15 +33,6 @@ public class Reservations extends Storage {
 		this.addItem(r.itemToCacheObject());
 	}
 	
-	public void createPendingReservation(Date t) {
-		this.pendingReservation = new Reservation("",t,"");
-	}
-	
-	public void setPendingReservationTitle(String title) {
-		if(this.pendingReservation != null){
-			this.pendingReservation.setTitle(title);
-		}
-	}
 	
 	public boolean hasCollidinSlot(Date slotDate) {
 		List<Reservation> reservations = this.getAllReservations().stream().filter(reservation -> reservation.isColliding(slotDate)).toList();
