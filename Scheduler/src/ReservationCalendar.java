@@ -14,6 +14,7 @@ public class ReservationCalendar {
 		Calendar c = Calendar.getInstance();
         c.setTime(now);
         c.add(Calendar.DATE,this.dayOffSet);
+        c.set(Calendar.HOUR_OF_DAY, 9);
         c.set(Calendar.MINUTE,0);
         c.set(Calendar.SECOND,0);
         c.set(Calendar.MILLISECOND, 0);
@@ -51,7 +52,8 @@ public class ReservationCalendar {
 		if(slotsToShow.size() < 1) {
 			System.out.println("Ei vapaita aikoja tälle päivälle. Valitse seuraava päivä!");
 		}
-		return slotsToShow;
+		this.slots = slotsToShow;
+		return this.slots;
 	}
 	
 	public boolean setSelectedSlot(int i) {

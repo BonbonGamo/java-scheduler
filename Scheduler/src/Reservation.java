@@ -24,9 +24,6 @@ public class Reservation implements StoreableObject<ReservationObject> {
 	}
 	
 	public String getInfo() {
-		if(this.r == null) {
-			return "Nulll";
-		}
 		return "" + this.r.getStart().toString() + " - " + this.r.getName();
 	}
 	
